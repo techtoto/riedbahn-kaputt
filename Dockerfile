@@ -16,5 +16,6 @@ COPY ./main.js ./main.js
 
 ENV LISTEN_HOST=0.0.0.0
 ENV LISTEN_PORT=80
+EXPOSE 80
 
 CMD ["node", "main.js"]
