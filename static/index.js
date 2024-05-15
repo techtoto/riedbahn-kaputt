@@ -10,7 +10,7 @@ socket.addEventListener("open", _ => {
 
 socket.addEventListener("message", async event => {
     const wsJson = JSON.parse(event.data)
-    const revision = typeof wsJson.revision === 'number' ? wsJson.revision : wsJson.revision.nummer
+    const revision = typeof wsJson.revision === "number" ? wsJson.revision : wsJson.revision.nummer
 
     const response = await fetch(`/api/riedbahn-kaputt?revision=${revision}`)
     const json = await response.json()
@@ -22,7 +22,7 @@ socket.addEventListener("message", async event => {
 
 function reloadStatus() {
     if (disruptions)
-        document.getElementById("status").textContent = disruptions.length === 0 ? 'Nein.' : 'Ja.'
+        document.getElementById("status").textContent = disruptions.length === 0 ? "Nein." : "Ja."
 }
 
 document.addEventListener("DOMContentLoaded", () => {
