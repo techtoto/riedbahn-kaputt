@@ -1,3 +1,5 @@
+import { DateTime } from "https://esm.sh/luxon@3.4.4"
+
 let disruptions = undefined
 const socket = new WebSocket("wss://strecken-info-beta.de/api/notifications")
 
@@ -20,6 +22,13 @@ socket.addEventListener("message", async event => {
     }
 })
 
+/**
+ * @param {string} isoString 
+ */
+function formatDateTime(isoString) {
+    return DateTime.fromISO(isoString).toLocaleString(DateTime.DATETIME_SHORT)
+}
+
 function reloadStatus() {
     if (disruptions) {
         document.getElementById("status").textContent = disruptions.length === 0 ? "Nein." : "Ja."
@@ -34,7 +43,7 @@ function reloadStatus() {
 
             const date = document.createElement("p")
             date.classList.add("italic")
-            date.textContent = `${element.zeitraum.beginn} - ${element.zeitraum.ende}`
+            date.textContent = `${formatDateTime(element.zeitraum.beginn)} - ${formatDateTime(element.zeitraum.ende)}`
 
             const locations = document.createElement("p")
             locations.classList.add("italic")
