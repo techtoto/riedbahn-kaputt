@@ -1,4 +1,4 @@
-FROM node:slim AS base
+FROM docker.io/library/node:20-slim AS base
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
