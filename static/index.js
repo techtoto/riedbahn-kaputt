@@ -2,6 +2,7 @@ import { DateTime } from "https://esm.sh/luxon@3.4.4"
 
 let disruptions = undefined
 const socket = new WebSocket("wss://strecken-info-beta.de/api/notifications")
+const disruptionDiv = document.getElementById("disruptions")
 
 socket.addEventListener("open", _ => {
     socket.send(JSON.stringify({
@@ -33,6 +34,8 @@ function reloadStatus() {
     if (disruptions) {
         document.getElementById("status").textContent = disruptions.length === 0 ? "Nein." : "Ja."
 
+        disruptionDiv.innerHTML = ""
+
         disruptions.forEach(element => {
             const entry = document.createElement("div")
             entry.classList.add("disruptionText")
@@ -58,7 +61,7 @@ function reloadStatus() {
             entry.appendChild(locations)
             entry.appendChild(content)
 
-            document.getElementById("disruptions").appendChild(entry)
+            disruptionDiv.appendChild(entry)
         })
     }
 }
