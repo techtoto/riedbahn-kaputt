@@ -12,3 +12,22 @@ body {
     flex-direction: column;
     text-align: center;
 }
+
+@media (min-width: 910px) {
+    #disruptions {
+        width: 900px;
+    }
+}
+
+#disruptions {
+    text-align: left;
+    margin: 8px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
