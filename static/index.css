@@ -3,6 +3,10 @@ body {
     font-family: sans-serif;
 }
 
+html, body {
+    color-scheme: light dark;
+}
+
 #main {
     display: flex;
     width: 100%;
