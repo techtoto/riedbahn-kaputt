@@ -1,6 +1,7 @@
 import express from 'express'
 import fetch from 'node-fetch'
 import NodeCache from 'node-cache'
+import { DateTime } from 'luxon'
 
 const app = express()
 const cache = new NodeCache({ stdTTL: 60 * 10 })
@@ -19,6 +20,8 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
         return
     }
 
+    const time = DateTime.now().setZone("Europe/Berlin").toISO({ includeOffset: false })
+
     const response = await fetch("https://strecken-info-beta.de/api/stoerungen", {
         method: "POST",
         headers: {
@@ -35,8 +38,8 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
                 wirkungsdauer: 0,
                 zeitraeume: [
                     {
-                        beginn: new Date().toISOString(),
-                        ende: new Date().toISOString()
+                        beginn: time,
+                        ende: time
                     }
                 ],
                 regionalbereiche: [],
