@@ -17,7 +17,7 @@ socket.addEventListener("message", async event => {
 
     const response = await fetch(`/api/riedbahn-kaputt?revision=${revision}`)
     const json = await response.json()
-    disruptions = json.filter(d => !d.abgelaufen)
+    disruptions = json
     if (document.readyState === "complete") {
         reloadStatus()
     }

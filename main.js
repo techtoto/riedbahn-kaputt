@@ -16,7 +16,10 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
 
     const cachedValue = cache.get(revision)
     if (cachedValue) {
-        res.header("Access-Control-Allow-Origin", "*").send(cachedValue)
+        res
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Content-Type", "application/json")
+            .send(cachedValue)
         return
     }
 
@@ -60,10 +63,12 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
         res.status(500).send("Internal server error")
         return
     }
-    const text = await response.text()
+    const json = (await response.json()).filter(d => !d.abgelaufen)
 
-    cache.set(revision, text)
-    res.header("Access-Control-Allow-Origin", "*").send(text)
+    cache.set(revision, JSON.stringify(json))
+    res
+        .header("Access-Control-Allow-Origin", "*")
+        .json(json)
 })
 
 app.use(express.static('static'))
