@@ -3,6 +3,7 @@ import { DateTime } from "https://esm.sh/luxon@3.4.4"
 let disruptions = undefined
 const socket = new WebSocket("wss://strecken-info-beta.de/api/notifications")
 const disruptionDiv = document.getElementById("disruptions")
+const pattern = /<br\s*\/?>/g
 
 socket.addEventListener("open", _ => {
     socket.send(JSON.stringify({
@@ -43,23 +44,23 @@ function reloadStatus() {
             const title = document.createElement("p")
             title.classList.add("bold")
             title.textContent = element.head
+            entry.appendChild(title)
 
             const date = document.createElement("p")
             date.classList.add("italic")
             date.textContent = `${formatDateTime(element.zeitraum.beginn)} - ${formatDateTime(element.zeitraum.ende)}`
+            entry.appendChild(date)
 
             const locations = document.createElement("p")
             locations.classList.add("italic")
-            let locationsText = ""
             locations.textContent = element.betriebsstellen.map(a => `${a.langname} (${a.ril100})`).join(", ")
-
-            const content = document.createElement("p")
-            content.textContent = element.text
-
-            entry.appendChild(title)
-            entry.appendChild(date)
             entry.appendChild(locations)
-            entry.appendChild(content)
+
+            if (element.text !== "") {
+                const content = document.createElement("p")
+                content.textContent = element.text.replaceAll(pattern, '\n')
+                entry.appendChild(content)
+            }
 
             disruptionDiv.appendChild(entry)
         })

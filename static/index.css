@@ -24,7 +24,11 @@ html, body {
 }
 
 #disruptions {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
     text-align: left;
+    white-space: pre-line;
     margin: 8px;
 }
 
