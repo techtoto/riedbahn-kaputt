@@ -2,6 +2,7 @@ import express from 'express'
 import fetch from 'node-fetch'
 import NodeCache from 'node-cache'
 import { DateTime } from 'luxon'
+import testData from './testData.js'
 
 const app = express()
 const cache = new NodeCache({ stdTTL: 60 * 10 })
@@ -11,6 +12,13 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
     const revision = req.query.revision
     if (!revision) {
         res.status(400).send("Paramter revision is missing")
+        return
+    }
+
+    if (process.argv[2] === "test") {
+        res
+            .header("Access-Control-Allow-Origin", "*")
+            .json(testData)
         return
     }
 
