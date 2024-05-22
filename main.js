@@ -7,6 +7,12 @@ import testData from './testData.js'
 const app = express()
 const cache = new NodeCache({ stdTTL: 60 * 10 })
 
+/**
+ * @param {string} isoString 
+ */
+function formatDateTime(isoString) {
+    return DateTime.fromISO(isoString).toLocaleString(DateTime.DATETIME_SHORT)
+}
 
 app.get('/api/riedbahn-kaputt', async (req, res) => {
     const revision = req.query.revision
@@ -71,7 +77,18 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
         res.status(500).send("Internal server error")
         return
     }
-    const json = (await response.json()).filter(d => !d.abgelaufen)
+    const json = (await response.json())
+        .filter(d => !d.abgelaufen)
+        .map(d => ({
+            head: d.head,
+            text: d.text,
+            period: {
+                start: formatDateTime(d.zeitraum.beginn),
+                end: formatDateTime(d.zeitraum.ende)
+            },
+            betriebsstellen: d.betriebsstellen
+                .filter((b, i, a) => i === a.map(c => c.langname).indexOf(b.langname))
+        }))
 
     cache.set(revision, JSON.stringify(json))
     res
