@@ -14,6 +14,21 @@ function formatDateTime(isoString) {
     return DateTime.fromISO(isoString).toFormat("dd.LL.yyyy HH:mm")
 }
 
+function createResponseJSON(inJSON) {
+    return inJSON.filter(d => !d.abgelaufen)
+    .map(d => ({
+        head: d.head,
+        text: d.text,
+        period: {
+            start: formatDateTime(d.zeitraum.beginn),
+            end: formatDateTime(d.zeitraum.ende)
+        },
+        betriebsstellen: d.betriebsstellen
+            // Filter for duplicate entries
+            .filter((b, i, a) => i === a.map(c => c.langname).indexOf(b.langname))
+    }))
+}
+
 app.get('/api/riedbahn-kaputt', async (req, res) => {
     const revision = req.query.revision
     if (!revision) {
@@ -24,7 +39,7 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
     if (process.argv[2] === "test") {
         res
             .header("Access-Control-Allow-Origin", "*")
-            .json(testData)
+            .json(createResponseJSON(testData))
         return
     }
 
@@ -77,18 +92,7 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
         res.status(500).send("Internal server error")
         return
     }
-    const json = (await response.json())
-        .filter(d => !d.abgelaufen)
-        .map(d => ({
-            head: d.head,
-            text: d.text,
-            period: {
-                start: formatDateTime(d.zeitraum.beginn),
-                end: formatDateTime(d.zeitraum.ende)
-            },
-            betriebsstellen: d.betriebsstellen
-                .filter((b, i, a) => i === a.map(c => c.langname).indexOf(b.langname))
-        }))
+    const json = createResponseJSON(await response.json())
 
     cache.set(revision, JSON.stringify(json))
     res
