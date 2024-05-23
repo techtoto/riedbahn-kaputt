@@ -11,7 +11,7 @@ const cache = new NodeCache({ stdTTL: 60 * 10 })
  * @param {string} isoString 
  */
 function formatDateTime(isoString) {
-    return DateTime.fromISO(isoString).toLocaleString(DateTime.DATETIME_SHORT)
+    return DateTime.fromISO(isoString).toFormat("dd.LL.yyyy HH:mm")
 }
 
 app.get('/api/riedbahn-kaputt', async (req, res) => {
