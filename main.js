@@ -2,7 +2,7 @@ import express from 'express'
 import fetch from 'node-fetch'
 import NodeCache from 'node-cache'
 import { DateTime } from 'luxon'
-import testData from './testData.js'
+import testData from './testData.json' assert { type: "json" }
 
 const app = express()
 const cache = new NodeCache({ stdTTL: 60 * 10 })
