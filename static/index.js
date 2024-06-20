@@ -1,5 +1,5 @@
 let disruptions = undefined
-const socket = new WebSocket("wss://strecken-info-beta.de/api/notifications")
+const socket = new WebSocket("wss://strecken-info.de/api/websocket")
 const disruptionDiv = document.getElementById("disruptions")
 const pattern = /<br\s*\/?>/g
 

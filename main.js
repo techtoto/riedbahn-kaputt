@@ -52,9 +52,7 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
         return
     }
 
-    const time = DateTime.now().setZone("Europe/Berlin").toISO({ includeOffset: false })
-
-    const response = await fetch("https://strecken-info-beta.de/api/stoerungen", {
+    const response = await fetch("https://strecken-info.de/api/stoerungen", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -68,18 +66,14 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
                 streckenruhenAktiv: false,
                 stoerungenAktiv: true,
                 wirkungsdauer: 0,
-                zeitraeume: [
-                    {
-                        beginn: time,
-                        ende: time
-                    }
-                ],
+                zeitraum: {
+                    type: "ROLLIEREND",
+                    stunden: 2
+                },
                 regionalbereiche: [],
                 streckennummern: [
-                    {
-                        von: 4010,
-                        bis: 4011
-                    }
+                    4010,
+                    4011
                 ],
                 betriebsstellen: []
             }
