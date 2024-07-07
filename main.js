@@ -15,9 +15,10 @@ function formatDateTime(isoString) {
 }
 
 function createResponseJSON(inJSON) {
-    return inJSON.filter(d => !d.abgelaufen)
+    return inJSON.filter(d => !d.abgelaufen
+        && (d.streckennummern.includes(4010) || d.streckennummern.includes(4011))) // fix for disruptions for whole regions which have no track number
     .map(d => ({
-        head: d.head,
+        head: d.cause,
         text: d.text,
         period: {
             start: formatDateTime(d.zeitraum.beginn),
@@ -70,7 +71,7 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
                     type: "ROLLIEREND",
                     stunden: 2
                 },
-                regionalbereiche: [],
+                regionalbereiche: ["MITTE", "NORD", "OST", "SUED", "SUEDOST", "SUEDWEST", "WEST"],
                 streckennummern: [
                     4010,
                     4011
