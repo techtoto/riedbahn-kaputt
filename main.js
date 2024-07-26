@@ -18,7 +18,7 @@ function createResponseJSON(inJSON) {
     return inJSON.filter(d => !d.abgelaufen
         && (d.streckennummern.includes(4010) || d.streckennummern.includes(4011))) // fix for disruptions for whole regions which have no track number
     .map(d => ({
-        head: d.cause,
+        head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : cause,
         text: d.text,
         period: {
             start: formatDateTime(d.zeitraum.beginn),
