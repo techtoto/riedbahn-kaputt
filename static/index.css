@@ -31,3 +31,12 @@ main {
 .italic {
     font-style: italic;
 }
+
+.line-through {
+    text-decoration: line-through;
+}
+
+#riedbahnsperrung {
+    font-size: smaller;
+    padding-top: 1em;
+}
