@@ -2,7 +2,7 @@ import express from 'express'
 import fetch from 'node-fetch'
 import NodeCache from 'node-cache'
 import { DateTime } from 'luxon'
-import testData from './testData.json' assert { type: "json" }
+import { readFileSync } from 'fs'
 
 const app = express()
 const cache = new NodeCache({ stdTTL: 60 * 10 })
@@ -18,7 +18,7 @@ function createResponseJSON(inJSON) {
     return inJSON.filter(d => !d.abgelaufen
         && (d.streckennummern.includes(4010) || d.streckennummern.includes(4011))) // fix for disruptions for whole regions which have no track number
     .map(d => ({
-        head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : cause,
+        head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : d.cause,
         text: d.text,
         period: {
             start: formatDateTime(d.zeitraum.beginn),
@@ -38,6 +38,7 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
     }
 
     if (process.argv[2] === "test") {
+        const testData = JSON.parse(readFileSync("testData.json"))
         res
             .header("Access-Control-Allow-Origin", "*")
             .json(createResponseJSON(testData))

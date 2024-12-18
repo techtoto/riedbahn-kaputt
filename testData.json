@@ -1,110 +1,152 @@
 [
     {
-        "hid": "HIM_FREETEXT_1111908",
-        "head": "Störung: Störung an Signalanlagen  - Stellwerksstörung",
-        "text": "Verbindungsausfall BZ - UZ <br />Keine Zugfahrten zwischen Bischofswerda - Görlitz möglich.<br />DPN-G 76519 steht am Esig Löbau.",
+        "key": "BZI_06962",
+        "cause": "Sonstige Unregelmäßigkeit",
+        "subcause": "",
+        "text": "Sämtliche Telefone mehrere Betriebszentralen und der NLZ ausgefallen. Aktuell keine telefonische Erreichbarkeit der Betriebszentralen und der NLZ.",
         "wirkungenMitVerkehrsarten": [
             {
-                "wirkung": "ZURUECKHALTEN_VON_ZUEGEN",
+                "wirkung": "SONSTIGES",
                 "verkehrsarten": [
+                    "SPFV",
                     "SPNV",
                     "SGV"
                 ]
             }
         ],
-        "gleisEinschraenkung": "SCHWER",
+        "gleisEinschraenkung": "LEICHT",
         "zeitraum": {
-            "beginn": "2024-05-23T13:05:00",
-            "ende": "2024-05-23T17:05:00"
+            "beginn": "2024-12-18T08:45:46",
+            "ende": "2024-12-18T10:08:17"
         },
-        "betriebsstellen": [
-            {
-                "ril100": "DDT",
-                "langname": "Demitz-Thumitz"
-            },
-            {
-                "ril100": "DG",
-                "langname": "Görlitz"
-            }
-        ],
+        "tageszeit": null,
+        "betriebsstellen": [],
+        "abschnitte": [],
         "regionen": [
-            "Südost 1 (Ostsachsen)"
-        ],
-        "streckennummern": [
-            6212
+            "Korridor Nord",
+            "Korridor Süd",
+            "Korridor West"
         ],
         "koordinaten": [
             {
-                "x": 1585511.8741837894,
-                "y": 6646626.4287839895
+                "x": 1016729.2174113926,
+                "y": 6592416.42843386
             },
             {
-                "x": 1667664.4612081123,
-                "y": 6647496.65099042
+                "x": 984380.2234546731,
+                "y": 6449855.952880479
             },
             {
-                "x": 1552334.3383651823,
-                "y": 6651812.065330714
+                "x": 832024.2445093901,
+                "y": 6478583.863132853
             }
         ],
         "sammelmeldung": false,
         "regionalbereiche": [
-            "SUEDOST"
+            "MITTE",
+            "SUEDWEST"
         ],
+        "geschlossen": false,
+        "referenzZeitpunktFuerAblauf": "2024-12-18T17:05:44.491256657",
         "abgelaufen": false
     },
     {
-        "hid": "HIM_FREETEXT_1111908",
-        "head": "Störung: Störung an Signalanlagen  - Stellwerksstörung",
-        "text": "Verbindungsausfall BZ - UZ <br />Keine Zugfahrten zwischen Bischofswerda - Görlitz möglich.<br />DPN-G 76519 steht am Esig Löbau.",
+        "key": "BZI_06967",
+        "cause": "Störung an Signalanlagen",
+        "subcause": "Sonstige Störung an Signalanlagen",
+        "text": "",
         "wirkungenMitVerkehrsarten": [
             {
-                "wirkung": "ZURUECKHALTEN_VON_ZUEGEN",
+                "wirkung": "FAHRZEITVERLAENGERUNG",
                 "verkehrsarten": [
+                    "SPFV",
                     "SPNV",
                     "SGV"
                 ]
             }
         ],
-        "gleisEinschraenkung": "SCHWER",
+        "gleisEinschraenkung": "LEICHT",
         "zeitraum": {
-            "beginn": "2024-05-23T13:05:00",
-            "ende": "2024-05-23T17:05:00"
+            "beginn": "2024-12-18T09:52:02",
+            "ende": "2024-12-18T10:23:04"
         },
+        "tageszeit": null,
         "betriebsstellen": [
             {
-                "ril100": "DDT",
-                "langname": "Demitz-Thumitz"
-            },
-            {
-                "ril100": "DG",
-                "langname": "Görlitz"
+                "ril100": "FWF",
+                "langname": "Walldorf (Hess)"
             }
         ],
-        "regionen": [
-            "Südost 1 (Ostsachsen)"
-        ],
-        "streckennummern": [
-            6212
-        ],
+        "abschnitte": [],
+        "regionen": [],
         "koordinaten": [
             {
-                "x": 1585511.8741837894,
-                "y": 6646626.4287839895
+                "x": 955319.8113716808,
+                "y": 6446704.523369826
             },
             {
-                "x": 1667664.4612081123,
-                "y": 6647496.65099042
-            },
-            {
-                "x": 1552334.3383651823,
-                "y": 6651812.065330714
+                "x": 955319.8113716808,
+                "y": 6446704.523369826
             }
         ],
         "sammelmeldung": false,
         "regionalbereiche": [
-            "SUEDOST"
+            "MITTE"
         ],
+        "geschlossen": false,
+        "referenzZeitpunktFuerAblauf": "2024-12-18T17:05:44.491256657",
+        "abgelaufen": false
+    },
+    {
+        "key": "BZI_06975",
+        "cause": "Störung an Signalanlagen",
+        "subcause": "Rotausleuchtung",
+        "text": "Rotausleuchtungen an der Üst. Bürstadt Süd.",
+        "wirkungenMitVerkehrsarten": [
+            {
+                "wirkung": "UMLEITUNG",
+                "verkehrsarten": [
+                    "SPFV",
+                    "SGV"
+                ]
+            },
+            {
+                "wirkung": "TEILAUSFALL",
+                "verkehrsarten": [
+                    "SPNV"
+                ]
+            }
+        ],
+        "gleisEinschraenkung": "SCHWER",
+        "zeitraum": {
+            "beginn": "2024-12-18T13:21:55",
+            "ende": "2024-12-18T16:40:06"
+        },
+        "tageszeit": null,
+        "betriebsstellen": [
+            {
+                "ril100": "FBUP",
+                "langname": "Bürstadt                            (Hp)"
+            }
+        ],
+        "abschnitte": [],
+        "regionen": [],
+        "koordinaten": [
+            {
+                "x": 941781.3403752721,
+                "y": 6385234.156250789
+            },
+            {
+                "x": 941781.3403752721,
+                "y": 6385234.156250789
+            }
+        ],
+        "sammelmeldung": false,
+        "regionalbereiche": [
+            "MITTE"
+        ],
+        "geschlossen": false,
+        "referenzZeitpunktFuerAblauf": "2024-12-18T17:05:44.491256657",
         "abgelaufen": false
     }
 ]
