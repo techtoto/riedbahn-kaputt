@@ -16,8 +16,7 @@ function formatDateTime(isoString) {
 
 function createResponseJSON(inJSON) {
     return inJSON.filter(d => !d.abgelaufen
-        && (d.streckennummern.includes(3510) || d.streckennummern.includes(2630) 
-        || d.streckennummern.includes(3507) || d.streckennummern.includes(2324))) // fix for disruptions for whole regions which have no track number
+        && (d.streckennummern.includes(4010) || d.streckennummern.includes(4011))) // fix for disruptions for whole regions which have no track number
     .map(d => ({
         head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : cause,
         text: d.text,
@@ -74,10 +73,8 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
                 },
                 regionalbereiche: ["MITTE", "NORD", "OST", "SUED", "SUEDOST", "SUEDWEST", "WEST"],
                 streckennummern: [
-                    3510, // Mainz - Bingen
-                    2630, // Bingen - Köln
-                    3507, // Wiesbaden - Koblenz
-                    2324 // Koblenz - Köln-Kalk Nord
+                    4010,
+                    4011
                 ],
                 betriebsstellen: []
             }
