@@ -24,6 +24,10 @@ main {
     white-space: pre-line;
 }
 
+#status {
+    height: 1em;
+}
+
 .bold {
     font-weight: bold;
 }
