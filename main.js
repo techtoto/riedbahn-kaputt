@@ -2,7 +2,7 @@ import express from 'express'
 import fetch from 'node-fetch'
 import NodeCache from 'node-cache'
 import { DateTime } from 'luxon'
-import testData from './testData.json' assert { type: "json" }
+import { readFileSync } from 'fs'
 
 const app = express()
 const cache = new NodeCache({ stdTTL: 60 * 10 })
@@ -19,7 +19,7 @@ function createResponseJSON(inJSON) {
         && (d.betriebsstellen.length > 0 || d.abschnitte > 0)
     )
     .map(d => ({
-        head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : cause,
+        head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : d.cause,
         text: d.text,
         period: {
             start: formatDateTime(d.zeitraum.beginn),
@@ -39,6 +39,7 @@ app.get('/api/riedbahn-kaputt', async (req, res) => {
     }
 
     if (process.argv[2] === "test") {
+        const testData = JSON.parse(readFileSync("testData.json"))
         res
             .header("Access-Control-Allow-Origin", "*")
             .json(createResponseJSON(testData))
