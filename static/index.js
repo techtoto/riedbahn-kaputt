@@ -3,6 +3,10 @@ const socket = new WebSocket("wss://strecken-info.de/api/websocket")
 const disruptionDiv = document.getElementById("disruptions")
 const pattern = /<br\s*\/?>/g
 
+function error() {
+    document.getElementById("status").textContent = "Vielleicht."
+}
+
 socket.addEventListener("open", _ => {
     socket.send(JSON.stringify({
         revision: null,
@@ -11,16 +15,26 @@ socket.addEventListener("open", _ => {
 })
 
 socket.addEventListener("message", async event => {
-    const wsJson = JSON.parse(event.data)
-    const revision = typeof wsJson.revision === "number" ? wsJson.revision : wsJson.revision.nummer
+    try {
+        const wsJson = JSON.parse(event.data)
+        const revision = typeof wsJson.revision === "number" ? wsJson.revision : wsJson.revision.nummer
 
-    const response = await fetch(`/api/riedbahn-kaputt?revision=${revision}`)
-    const json = await response.json()
-    disruptions = json
-    if (document.readyState === "complete") {
-        reloadStatus()
+        const response = await fetch(`/api/riedbahn-kaputt?revision=${revision}`)
+        if (!response.ok) {
+            throw new Error(`Response status ${response.status}`)
+        }
+        const json = await response.json()
+        disruptions = json
+        if (document.readyState === "complete") {
+            reloadStatus()
+        }
+    } catch (e) {
+        console.error(e)
+        error()
     }
 })
+
+socket.addEventListener("error", error)
 
 function reloadStatus() {
     if (disruptions) {
