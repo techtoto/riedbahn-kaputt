@@ -16,7 +16,7 @@ function formatDateTime(isoString) {
 
 function createResponseJSON(inJSON) {
     return inJSON.filter(d => !d.abgelaufen
-        && (d.betriebsstellen.length > 0 || d.abschnitte > 0)
+        && (d.betriebsstellen.length > 0 || d.abschnitte.length > 0)
     )
     .map(d => ({
         head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : d.cause,
