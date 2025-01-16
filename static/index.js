@@ -58,7 +58,7 @@ function reloadStatus() {
 
             const locations = document.createElement("p")
             locations.classList.add("italic")
-            locations.textContent = element.betriebsstellen.map(a => `${a.langname} (${a.ril100})`).join(", ")
+            locations.textContent = element.betriebsstellen.join(", ")
             entry.appendChild(locations)
 
             if (element.text !== "") {
