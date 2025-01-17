@@ -18,17 +18,21 @@ function createResponseJSON(inJSON) {
     return inJSON.filter(d => !d.abgelaufen
         && (d.betriebsstellen.length > 0 || d.abschnitte.length > 0)
     )
-    .map(d => ({
-        head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : d.cause,
-        text: d.text,
-        period: {
-            start: formatDateTime(d.zeitraum.beginn),
-            end: formatDateTime(d.zeitraum.ende)
-        },
-        betriebsstellen: d.betriebsstellen
-            // Filter for duplicate entries
-            .filter((b, i, a) => i === a.map(c => c.langname).indexOf(b.langname))
-    }))
+    .map(d => {
+        const stations = d.betriebsstellen.map(station => `${station.langname} (${station.ril100})`)
+        stations.push(...d.abschnitte.map(section => `${section.von.langname} (${section.von.ril100}) - ${section.bis.langname} (${section.bis.ril100})`))
+        return {
+            head: d.subcause !== '' ? `${d.cause} - ${d.subcause}` : d.cause,
+            text: d.text,
+            period: {
+                start: formatDateTime(d.zeitraum.beginn),
+                end: formatDateTime(d.zeitraum.ende)
+            },
+            betriebsstellen: stations
+                // Filter for duplicate entries
+                .filter((b, i, a) => i === a.map(c => c.langname).indexOf(b.langname))
+        }
+    })
 }
 
 app.get('/api/riedbahn-kaputt', async (req, res) => {
